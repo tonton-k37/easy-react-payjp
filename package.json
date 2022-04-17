@@ -1,14 +1,28 @@
 {
   "name": "easy-react-payjp",
-  "private": true,
-  "version": "0.0.0",
+  "private": false,
+  "version": "0.1.0",
+  "author": "tonton-k",
+  "keywords": [
+    "react",
+    "payjp"
+  ],
+  "main": "./dist/easy-react-payjp.umd.js",
+  "module": "./dist/easy-react-payjp.es.js",
+  "types": "",
+  "exports": {
+    ".": {
+      "import": "./dist/easy-react-payjp.es.js",
+      "export": "./dist/easy-react-payjp.umd.js"
+    }
+  },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build && tsc --emitDeclarationOnly",
     "preview": "vite preview"
   },
-  "dependencies": {},
   "devDependencies": {
+    "@types/node": "^17.0.24",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@vitejs/plugin-react": "^1.3.0",
@@ -17,6 +31,7 @@
     "typescript": "^4.6.3",
     "vite": "^2.9.2"
   },
+  "dependencies": {},
   "peerDependencies": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0"

@@ -13,8 +13,10 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    // "noEmit": true,
+    "jsx": "react-jsx",
+    "outDir": "dist/types",
+    "declaration": true
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

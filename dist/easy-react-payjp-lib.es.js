@@ -157,6 +157,115 @@ class PayJpCheckOutService {
     });
   }
 }
+class PayJpV2Service {
+  constructor({
+    formAppendTo = "payjp-v2",
+    payJpV2Source = "https://js.pay.jp/v2/pay.js",
+    publicToken,
+    onTokenCreated = () => console.log("token created"),
+    onNumberFormInputChange = (event) => console.log("input changed")
+  }) {
+    __publicField(this, "_formAppendTo");
+    __publicField(this, "_payJpV2Source");
+    __publicField(this, "_publicToken");
+    __publicField(this, "_onTokenCreated");
+    __publicField(this, "_onNumberFormInputChange");
+    __publicField(this, "_scriptId", "payjp-v2-script");
+    __publicField(this, "_payjp");
+    __publicField(this, "_elements");
+    __publicField(this, "card");
+    this.formAppendTo = formAppendTo;
+    this.payJpV2Source = payJpV2Source;
+    this.publicToken = publicToken;
+    this.onTokenCreated = onTokenCreated;
+    this.onNumberFormInputChange = onNumberFormInputChange;
+    this.submit = this.submit.bind(this);
+  }
+  get formAppendTo() {
+    return this._formAppendTo;
+  }
+  set formAppendTo(value) {
+    this._formAppendTo = value;
+  }
+  get payJpV2Source() {
+    return this._payJpV2Source;
+  }
+  set payJpV2Source(value) {
+    this._payJpV2Source = value;
+  }
+  get publicToken() {
+    return this._publicToken;
+  }
+  set publicToken(value) {
+    this._publicToken = value;
+  }
+  get onTokenCreated() {
+    return this._onTokenCreated;
+  }
+  set onTokenCreated(value) {
+    this._onTokenCreated = value;
+  }
+  get onNumberFormInputChange() {
+    return this._onNumberFormInputChange;
+  }
+  set onNumberFormInputChange(value) {
+    this._onNumberFormInputChange = value;
+  }
+  get scriptId() {
+    return this._scriptId;
+  }
+  set scriptId(value) {
+    this._scriptId = value;
+  }
+  get payjp() {
+    return this._payjp;
+  }
+  set payjp(value) {
+    this._payjp = value;
+  }
+  get elements() {
+    return this._elements;
+  }
+  set elements(value) {
+    this._elements = value;
+  }
+  createScript(callbackFunction) {
+    const isScriptExist = document.getElementById(this.scriptId);
+    if (!isScriptExist) {
+      const script = document.createElement("script");
+      script.src = this.payJpV2Source;
+      script.id = this.scriptId;
+      script.type = "module";
+      document.head.appendChild(script);
+      script.onload = (event) => {
+        if (callbackFunction)
+          callbackFunction();
+      };
+    }
+  }
+  createElements() {
+    try {
+      this.payjp = Payjp(this.publicToken);
+      this.elements = this.payjp.elements();
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+  mountForm(form) {
+    const element = this.elements.create(form.name, { style: form.style });
+    element.mount(`#${form.id}`);
+    if (form.name === "card" || "cardNumber") {
+      this.card = element;
+      element.on("change", this.onNumberFormInputChange);
+    }
+  }
+  submit() {
+    this.payjp.createToken(this.card).then((r) => {
+      const v2tokenElement = document == null ? void 0 : document.getElementById("payjp-v2-token");
+      v2tokenElement.innerText = r.error ? r.error.message : r.id;
+    });
+  }
+}
 const PayJpCheckOut = ({
   payJpSource,
   publicToken,
@@ -199,4 +308,52 @@ const PayJpCheckOut = ({
     id: "payjpService"
   });
 };
-export { PayJpCheckOut };
+const isIterable = (obj) => {
+  if (obj == null)
+    return false;
+  return typeof obj[Symbol.iterator] === "function";
+};
+const PayJpV2 = ({ children, publicToken, buttonText, onTokenCreated, onNumberFormInputChange }) => {
+  const [loaded, setLoaded] = useState(false);
+  const [scriptLoaded, setScriptLoaded] = useState(false);
+  const payJpV2Service = new PayJpV2Service({
+    publicToken,
+    onTokenCreated,
+    onNumberFormInputChange
+  });
+  useEffect(() => {
+    setLoaded(true);
+    payJpV2Service.createScript(() => setScriptLoaded(true));
+  }, []);
+  useEffect(() => {
+    if (scriptLoaded) {
+      payJpV2Service.createElements();
+      if (!children) {
+        console.warn("need to pass at least one card form");
+        return;
+      }
+      const childs = isIterable(children) ? children : [children];
+      childs.forEach((child) => {
+        payJpV2Service.mountForm({
+          name: child.props.name,
+          id: child.props.id,
+          style: child.props.style
+        });
+      });
+    }
+  }, [scriptLoaded]);
+  return /* @__PURE__ */ React.createElement("div", {
+    id: "payjp-v2",
+    className: "payjp-outer"
+  }, children, /* @__PURE__ */ React.createElement("button", {
+    onClick: payJpV2Service.submit
+  }, buttonText), /* @__PURE__ */ React.createElement("span", {
+    id: "payjp-v2-token"
+  }));
+};
+const PayJpV2Element = ({ id }) => {
+  return /* @__PURE__ */ React.createElement("div", {
+    id
+  });
+};
+export { PayJpCheckOut, PayJpV2, PayJpV2Element };

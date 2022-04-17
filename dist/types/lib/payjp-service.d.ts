@@ -1,4 +1,4 @@
-import { PayJpCheckoutType, SupportedLanguageType } from '../types';
+import { MountFormType, PayJpCheckoutType, PayJpV2Type, SupportedLanguageType } from '../types';
 export declare class PayJpCheckOutService {
     private _payJpSource;
     get payJpSource(): string;
@@ -45,4 +45,34 @@ export declare class PayJpCheckOutService {
     private getAttributeList;
 }
 export declare class PayJpV2Service {
+    private _formAppendTo;
+    get formAppendTo(): string;
+    set formAppendTo(value: string);
+    private _payJpV2Source;
+    get payJpV2Source(): string;
+    set payJpV2Source(value: string);
+    private _publicToken;
+    get publicToken(): string;
+    set publicToken(value: string);
+    private _onTokenCreated;
+    get onTokenCreated(): <T>(args: T) => any;
+    set onTokenCreated(value: <T>(args: T) => any);
+    private _onNumberFormInputChange;
+    get onNumberFormInputChange(): <T>(args: T) => any;
+    set onNumberFormInputChange(value: <T>(args: T) => any);
+    private _scriptId;
+    get scriptId(): string;
+    set scriptId(value: string);
+    private _payjp;
+    get payjp(): any;
+    set payjp(value: any);
+    private _elements;
+    get elements(): any;
+    set elements(value: any);
+    card: any;
+    constructor({ formAppendTo, payJpV2Source, publicToken, onTokenCreated, onNumberFormInputChange, }: PayJpV2Type);
+    createScript(callbackFunction?: <T>(args?: T) => any): void;
+    createElements(): void;
+    mountForm(form: MountFormType): void;
+    submit(): void;
 }

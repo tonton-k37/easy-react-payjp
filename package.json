@@ -11,8 +11,7 @@
     "payjp"
   ],
   "files": [
-    "dist",
-    "README.md"
+    "dist"
   ],
   "main": "./dist/easy-react-payjp-lib.umd.js",
   "module": "./dist/easy-react-payjp-lib.es.js",
@@ -25,7 +24,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build && tsc --emitDeclarationOnly",
+    "build": "vite build && tsc --emitDeclarationOnly && cp README.md dist/README.md",
     "preview": "vite preview"
   },
   "devDependencies": {

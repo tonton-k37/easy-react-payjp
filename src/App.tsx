@@ -1,7 +1,7 @@
+import React from 'react'
 import { PayJpCheckOut } from './component/PayJpCheckout'
 
 export const App: React.FC = () => {
-
   return (
     <div>
       <PayJpCheckOut

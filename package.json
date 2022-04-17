@@ -1,19 +1,19 @@
 {
   "name": "easy-react-payjp",
   "private": false,
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "tonton-k",
   "keywords": [
     "react",
     "payjp"
   ],
-  "main": "./dist/easy-react-payjp.umd.js",
-  "module": "./dist/easy-react-payjp.es.js",
-  "types": "",
+  "main": "./dist/easy-react-payjp-lib.umd.js",
+  "module": "./dist/easy-react-payjp-lib.es.js",
+  "types": "dist/types",
   "exports": {
     ".": {
-      "import": "./dist/easy-react-payjp.es.js",
-      "export": "./dist/easy-react-payjp.umd.js"
+      "import": "./dist/easy-react-payjp-lib.es.js",
+      "export": "./dist/easy-react-payjp-lib.umd.js"
     }
   },
   "scripts": {

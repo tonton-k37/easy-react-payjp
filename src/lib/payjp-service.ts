@@ -1,4 +1,10 @@
-import { PayJpCheckoutType, PayJpType, SupportedLanguageType } from '../types';
+import {
+  MountFormType,
+  PayJpCheckoutType,
+  PayJpType,
+  PayJpV2Type,
+  SupportedLanguageType,
+} from '../types';
 
 declare const window: PayJpType;
 
@@ -210,4 +216,154 @@ export class PayJpCheckOutService {
   }
 }
 
-export class PayJpV2Service {}
+// V2
+
+export class PayJpV2Service {
+  private _formAppendTo!: string;
+
+  public get formAppendTo(): string {
+    return this._formAppendTo;
+  }
+
+  public set formAppendTo(value: string) {
+    this._formAppendTo = value;
+  }
+
+  private _payJpV2Source!: string;
+
+  public get payJpV2Source(): string {
+    return this._payJpV2Source;
+  }
+
+  public set payJpV2Source(value: string) {
+    this._payJpV2Source = value;
+  }
+
+  private _publicToken!: string;
+
+  public get publicToken(): string {
+    return this._publicToken;
+  }
+
+  public set publicToken(value: string) {
+    this._publicToken = value;
+  }
+
+  private _onTokenCreated!: <T>(args: T) => any;
+
+  public get onTokenCreated(): <T>(args: T) => any {
+    return this._onTokenCreated;
+  }
+
+  public set onTokenCreated(value: <T>(args: T) => any) {
+    this._onTokenCreated = value;
+  }
+
+  private _onNumberFormInputChange!: <T>(args: T) => any;
+
+  public get onNumberFormInputChange(): <T>(args: T) => any {
+    return this._onNumberFormInputChange;
+  }
+
+  public set onNumberFormInputChange(value: <T>(args: T) => any) {
+    this._onNumberFormInputChange = value;
+  }
+
+  private _scriptId = 'payjp-v2-script';
+
+  public get scriptId() {
+    return this._scriptId;
+  }
+
+  public set scriptId(value) {
+    this._scriptId = value;
+  }
+
+  private _payjp: any;
+
+  public get payjp(): any {
+    return this._payjp;
+  }
+
+  public set payjp(value: any) {
+    this._payjp = value;
+  }
+
+  private _elements: any;
+
+  public get elements(): any {
+    return this._elements;
+  }
+
+  public set elements(value: any) {
+    this._elements = value;
+  }
+
+  card: any;
+
+  constructor({
+    formAppendTo = 'payjp-v2',
+    payJpV2Source = 'https://js.pay.jp/v2/pay.js',
+    publicToken,
+    onTokenCreated = () => console.log('token created'),
+    onNumberFormInputChange = (event) => console.log('input changed'),
+  }: PayJpV2Type) {
+    this.formAppendTo = formAppendTo;
+    this.payJpV2Source = payJpV2Source;
+    this.publicToken = publicToken;
+    this.onTokenCreated = onTokenCreated;
+    this.onNumberFormInputChange = onNumberFormInputChange;
+
+    this.submit = this.submit.bind(this);
+  }
+
+  public createScript(callbackFunction?: <T>(args?: T) => any) {
+    const isScriptExist = document.getElementById(this.scriptId);
+
+    if (!isScriptExist) {
+      const script = document.createElement('script');
+      script.src = this.payJpV2Source;
+      script.id = this.scriptId;
+      script.type = 'module';
+
+      document.head.appendChild(script);
+
+      script.onload = (event) => {
+        if (callbackFunction) callbackFunction();
+      };
+    }
+  }
+
+  public createElements() {
+    try {
+      this.payjp = Payjp(this.publicToken);
+      this.elements = this.payjp.elements();
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+
+  public mountForm(form: MountFormType) {
+    const element = this.elements.create(form.name, { style: form.style });
+    element.mount(`#${form.id}`);
+
+    if (form.name === 'card' || 'cardNumber') {
+      this.card = element;
+      element.on('change', this.onNumberFormInputChange);
+    }
+  }
+
+  public submit() {
+    this.payjp
+      .createToken(this.card)
+      .then(
+        (r: {
+          error: { message: string | undefined };
+          id: string | undefined;
+        }) => {
+          const v2tokenElement = document?.getElementById('payjp-v2-token');
+          (v2tokenElement as any).innerText = r.error ? r.error.message : r.id;
+        }
+      );
+  }
+}

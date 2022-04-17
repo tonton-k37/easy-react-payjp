@@ -22,3 +22,28 @@ export type PayJpCheckoutType = {
   tenant?: string;
   partial?: boolean;
 };
+
+// for v2
+export type PayJpV2Type = {
+  formAppendTo?: string;
+  payJpV2Source?: string;
+  publicToken: string;
+  onTokenCreated?: <T>(args: T) => any;
+  onNumberFormInputChange?: <T>(args: T) => any;
+};
+
+export type PayJpV2PropType = {
+  buttonText: string;
+  publicToken: string;
+  onTokenCreated?: <T>(args: T) => any;
+  onNumberFormInputChange?: <T>(args: T) => any;
+  children?: React.ReactNode | React.ReactNode[];
+};
+
+type MountFormmNameType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc';
+
+export type MountFormType = {
+  name: MountFormmNameType;
+  id: string;
+  style?: any;
+};

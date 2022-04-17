@@ -1,2 +1,1 @@
-import { PayJpCheckOut } from './component/PayJpCheckout';
-export { PayJpCheckOut };
+export { PayJpCheckOut } from './component/PayJpCheckout';

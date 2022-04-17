@@ -1,14 +1,18 @@
 {
   "name": "easy-react-payjp",
   "private": false,
-  "version": "0.1.4",
+  "version": "0.2.0",
   "author": "tonton-k",
+  "homepage": "https://github.com/tonton-k37/easy-react-payjp",
+  "bugs": "https://github.com/tonton-k37/easy-react-payjp/issues",
+  "license": "MIT",
   "keywords": [
     "react",
     "payjp"
   ],
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "main": "./dist/easy-react-payjp-lib.umd.js",
   "module": "./dist/easy-react-payjp-lib.es.js",

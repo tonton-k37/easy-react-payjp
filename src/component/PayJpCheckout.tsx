@@ -1,7 +1,8 @@
 import React from 'react'
 
 import { useEffect, useState } from 'react'
-import { PayJpCheckOutService, PayJpCheckoutType, SupportedLanguageType } from '../lib/payjp-service'
+import { PayJpCheckOutService } from '../lib/payjp-service'
+import { PayJpCheckoutType } from '../types'
 
 export const PayJpCheckOut: React.FC<PayJpCheckoutType> = ({
   payJpSource,

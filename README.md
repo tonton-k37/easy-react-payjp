@@ -45,10 +45,10 @@ function App() {
 
   return (
     <div className='App'>
-      <PayJpCheckOut publicToken={'pk_test_a594c42d940b467207120d93'} />
+      <PayJpCheckOut publicToken={'YOUR_PUBLIC_API_KEY'} />
 
       <PayJpV2
-        publicToken={'pk_test_0383a1b8f91e8a6e3ea0e2a9'}
+        publicToken={'YOUR_PUBLIC_API_KEY'}
         buttonText={'submit'}
         onTokenCreated={() => console.log('createToken')}
         onNumberFormInputChange={() => console.log('form changed')}

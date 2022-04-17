@@ -20,12 +20,12 @@ export const App: React.FC = () => {
   return (
     <div>
       <PayJpCheckOut
-        publicToken='pk_test_0383a1b8f91e8a6e3ea0e2a9'
+        publicToken='YOUR_PUBLIC_API_KEY'
         onTokenCreated={() => console.info('token created')}
         onTokenFailedToCreate={() => console.info('error')}
       />
 
-      <PayJpV2 publicToken={'pk_test_0383a1b8f91e8a6e3ea0e2a9'}
+      <PayJpV2 publicToken={'YOUR_PUBLIC_API_KEY'}
         buttonText={'submit'}
         onTokenCreated={() => console.log('createToken')}
         onNumberFormInputChange={() => console.log('form changed')}

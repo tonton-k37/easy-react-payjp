@@ -1,11 +1,14 @@
 {
   "name": "easy-react-payjp",
   "private": false,
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "tonton-k",
   "keywords": [
     "react",
     "payjp"
+  ],
+  "files": [
+    "dist"
   ],
   "main": "./dist/easy-react-payjp-lib.umd.js",
   "module": "./dist/easy-react-payjp-lib.es.js",

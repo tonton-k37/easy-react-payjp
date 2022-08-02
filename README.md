@@ -24,8 +24,14 @@ EasyReactPayjp でサポートしているコンポーネントは３種類
 **基本的な使い方**
 
 ```javascript
-import { PayJpCheckOut, PayJpV2, PayJpV2Element } from 'easy-react-payjp';
-import React, { useState } from 'react';
+import React from 'react';
+import {
+  usePayjpCheckout,
+  usePayjpV2,
+  PayjpCheckout,
+  PayjpV2,
+  PayJpV2Element,
+} from 'easy-react-payjp';
 
 const style = {
   base: {
@@ -41,20 +47,26 @@ const style = {
 };
 
 function App() {
-  const [count, setCount] = useState(0);
+  const checkoutProps = usePayjpCheckout({
+    publicToken: 'pk_test_e411f2a3951990d74afda24d',
+    onTokenCreated: () => console.info('token created'),
+    onTokenFailedToCreate: () => console.error('error'),
+  });
+
+  const v2Props = usePayjpV2({
+    publicToken: 'pk_test_e411f2a3951990d74afda24d',
+    buttonText: 'submit',
+    onTokenCreated: () => console.log('createToken'),
+    onNumberFormInputChange: () => console.log('form changed'),
+  });
 
   return (
     <div className='App'>
-      <PayJpCheckOut publicToken={'YOUR_PUBLIC_API_KEY'} />
+      <PayjpCheckout {...checkoutProps} />
 
-      <PayJpV2
-        publicToken={'YOUR_PUBLIC_API_KEY'}
-        buttonText={'submit'}
-        onTokenCreated={() => console.log('createToken')}
-        onNumberFormInputChange={() => console.log('form changed')}
-      >
+      <PayjpV2 {...v2Props}>
         <PayJpV2Element name='card' id='card' style={style} />
-      </PayJpV2>
+      </PayjpV2>
     </div>
   );
 }
@@ -62,7 +74,8 @@ function App() {
 export default App;
 ```
 
-###　 PayJpV2Element について
+### PayJpV2Element について
+
 このコンポーネントは、基本的な payjp の v2 エレメントをサポートしています。
 
 name には、何の input なのかを入力します。

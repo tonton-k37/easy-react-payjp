@@ -324,7 +324,6 @@ export class PayJpV2Service {
       const script = document.createElement('script');
       script.src = this.payJpV2Source;
       script.id = this.scriptId;
-      script.type = 'module';
 
       document.head.appendChild(script);
 

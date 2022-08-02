@@ -1,22 +1,22 @@
 import {
   MountFormType,
-  PayJpCheckoutType,
-  PayJpType,
-  PayJpV2Type,
+  PayjpCheckoutType,
+  PayjpType,
+  PayjpV2Type,
   SupportedLanguageType,
 } from '../types';
 
-declare const window: PayJpType;
+declare const window: PayjpType;
 
-export class PayJpCheckOutService {
-  private _payJpSource!: string;
+export class PayjpCheckoutService {
+  private _PayjpSource!: string;
 
-  public get payJpSource() {
-    return this._payJpSource;
+  public get PayjpSource() {
+    return this._PayjpSource;
   }
 
-  public set payJpSource(value) {
-    this._payJpSource = value;
+  public set PayjpSource(value) {
+    this._PayjpSource = value;
   }
 
   private _publicToken!: string;
@@ -148,7 +148,7 @@ export class PayJpCheckOutService {
   }
 
   constructor({
-    payJpSource = 'https://checkout.pay.jp/',
+    PayjpSource = 'https://checkout.pay.jp/',
     publicToken,
     buttonAppendTo = '',
     onTokenCreated = () => console.log('token created'),
@@ -161,8 +161,8 @@ export class PayJpCheckOutService {
     namePlaceholder = 'TARO YAMADA',
     tenant = '',
     partial = true,
-  }: PayJpCheckoutType) {
-    this.payJpSource = payJpSource;
+  }: PayjpCheckoutType) {
+    this.PayjpSource = PayjpSource;
     this.publicToken = publicToken;
     this.buttonAppendTo = buttonAppendTo;
     this.onTokenCreated = onTokenCreated;
@@ -181,7 +181,7 @@ export class PayJpCheckOutService {
 
   public mountButton() {
     const script = document.createElement('script');
-    script.src = this.payJpSource;
+    script.src = this.PayjpSource;
     script.classList.add('payjp-button');
 
     this.getAttributeList().forEach((attributeName) => {
@@ -189,21 +189,21 @@ export class PayJpCheckOutService {
     });
 
     script.dataset.key = this.publicToken;
-    script.dataset.onCreated = 'payJpServiceOnTokenCreated';
-    script.dataset.onFailed = 'payJpServiceonTokenFailedToCreate';
+    script.dataset.onCreated = 'payjpServiceOnTokenCreated';
+    script.dataset.onFailed = 'payjpServiceonTokenFailedToCreate';
 
-    document?.getElementById(this.buttonAppendTo)?.appendChild(script);
+    document.getElementById(this.buttonAppendTo)?.appendChild(script);
   }
 
   private setCallBackToWindow() {
-    window.payJpServiceOnTokenCreated = this.onTokenCreated;
-    window.payJpServiceonTokenFailedToCreate = this.onTokenFailedToCreate;
+    window.payjpServiceOnTokenCreated = this.onTokenCreated;
+    window.payjpServiceonTokenFailedToCreate = this.onTokenFailedToCreate;
   }
 
   private getAttributeList(unscored: boolean = false): string[] {
     const attributeNames = Object.getOwnPropertyNames(this).filter(
       (attribute) =>
-        !['_payJpSource', '_onTokenCreated', '_onTokenFailedToCreate'].includes(
+        !['_payjpSource', '_onTokenCreated', '_onTokenFailedToCreate'].includes(
           attribute
         )
     );
@@ -218,7 +218,7 @@ export class PayJpCheckOutService {
 
 // V2
 
-export class PayJpV2Service {
+export class PayjpV2Service {
   private _formAppendTo!: string;
 
   public get formAppendTo(): string {
@@ -229,14 +229,14 @@ export class PayJpV2Service {
     this._formAppendTo = value;
   }
 
-  private _payJpV2Source!: string;
+  private _PayjpV2Source!: string;
 
-  public get payJpV2Source(): string {
-    return this._payJpV2Source;
+  public get PayjpV2Source(): string {
+    return this._PayjpV2Source;
   }
 
-  public set payJpV2Source(value: string) {
-    this._payJpV2Source = value;
+  public set PayjpV2Source(value: string) {
+    this._PayjpV2Source = value;
   }
 
   private _publicToken!: string;
@@ -269,7 +269,7 @@ export class PayJpV2Service {
     this._onNumberFormInputChange = value;
   }
 
-  private _scriptId = 'payjp-v2-script';
+  private _scriptId = 'Payjp-v2-script';
 
   public get scriptId() {
     return this._scriptId;
@@ -279,14 +279,14 @@ export class PayJpV2Service {
     this._scriptId = value;
   }
 
-  private _payjp: any;
+  private _Payjp: any;
 
-  public get payjp(): any {
-    return this._payjp;
+  public get Payjp(): any {
+    return this._Payjp;
   }
 
-  public set payjp(value: any) {
-    this._payjp = value;
+  public set Payjp(value: any) {
+    this._Payjp = value;
   }
 
   private _elements: any;
@@ -302,41 +302,46 @@ export class PayJpV2Service {
   card: any;
 
   constructor({
-    formAppendTo = 'payjp-v2',
-    payJpV2Source = 'https://js.pay.jp/v2/pay.js',
+    formAppendTo = 'Payjp-v2',
+    PayjpV2Source = 'https://js.pay.jp/v2/pay.js',
+  }) {
+    this.formAppendTo = formAppendTo;
+    this.PayjpV2Source = PayjpV2Source;
+  }
+
+  public init({
     publicToken,
     onTokenCreated = () => console.log('token created'),
     onNumberFormInputChange = (event) => console.log('input changed'),
-  }: PayJpV2Type) {
-    this.formAppendTo = formAppendTo;
-    this.payJpV2Source = payJpV2Source;
+  }: PayjpV2Type) {
     this.publicToken = publicToken;
     this.onTokenCreated = onTokenCreated;
     this.onNumberFormInputChange = onNumberFormInputChange;
-
-    this.submit = this.submit.bind(this);
   }
 
   public createScript(callbackFunction?: <T>(args?: T) => any) {
-    const isScriptExist = document.getElementById(this.scriptId);
+    return new Promise((resolve, reject) => {
+      const isScriptExist = document.getElementById(this.scriptId);
 
-    if (!isScriptExist) {
-      const script = document.createElement('script');
-      script.src = this.payJpV2Source;
-      script.id = this.scriptId;
+      if (isScriptExist) {
+        const script = document.createElement('script');
+        script.src = this.PayjpV2Source;
+        script.id = this.scriptId;
 
-      document.head.appendChild(script);
+        document.head.appendChild(script);
 
-      script.onload = (event) => {
-        if (callbackFunction) callbackFunction();
-      };
-    }
+        script.onload = (event) => {
+          if (callbackFunction) callbackFunction();
+          resolve(true);
+        };
+      }
+    });
   }
 
   public createElements() {
     try {
-      this.payjp = Payjp(this.publicToken);
-      this.elements = this.payjp.elements();
+      this.Payjp = Payjp(this.publicToken);
+      this.elements = this.Payjp.elements();
     } catch (e) {
       console.warn(e);
     }
@@ -353,16 +358,14 @@ export class PayJpV2Service {
   }
 
   public submit() {
-    this.payjp
-      .createToken(this.card)
-      .then(
-        (r: {
-          error: { message: string | undefined };
-          id: string | undefined;
-        }) => {
-          const v2tokenElement = document?.getElementById('payjp-v2-token');
-          (v2tokenElement as any).innerText = r.error ? r.error.message : r.id;
-        }
-      );
+    this.Payjp.createToken(this.card).then(
+      (r: {
+        error: { message: string | undefined };
+        id: string | undefined;
+      }) => {
+        const v2tokenElement = document?.getElementById('Payjp-v2-token');
+        (v2tokenElement as any).innerText = r.error ? r.error.message : r.id;
+      }
+    );
   }
 }

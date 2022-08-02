@@ -1,13 +1,13 @@
-export type PayJpType = {
+export type PayjpType = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  payJpServiceOnTokenCreated: <T>(args: T) => any;
-  payJpServiceonTokenFailedToCreate: <T>(args: T) => any;
+  payjpServiceOnTokenCreated: <T>(args: T) => any;
+  payjpServiceonTokenFailedToCreate: <T>(args: T) => any;
 } & Window;
 
 export type SupportedLanguageType = 'ja' | 'en';
 
-export type PayJpCheckoutType = {
-  payJpSource?: string;
+export type PayjpCheckoutType = {
+  PayjpSource?: string;
   publicToken: string;
   buttonAppendTo?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -24,15 +24,15 @@ export type PayJpCheckoutType = {
 };
 
 // for v2
-export type PayJpV2Type = {
+export type PayjpV2Type = {
   formAppendTo?: string;
-  payJpV2Source?: string;
+  PayjpV2Source?: string;
   publicToken: string;
   onTokenCreated?: <T>(args: T) => any;
   onNumberFormInputChange?: <T>(args: T) => any;
 };
 
-export type PayJpV2PropType = {
+export type PayjpV2PropType = {
   buttonText: string;
   publicToken: string;
   onTokenCreated?: <T>(args: T) => any;

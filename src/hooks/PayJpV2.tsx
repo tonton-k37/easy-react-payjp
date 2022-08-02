@@ -1,37 +1,42 @@
-import { type } from 'os';
-import React, { Children, memo, useEffect, useState } from 'react';
-import { PayJpV2Service } from '../lib/payjp-service';
-import { MountFormType, PayJpV2PropType } from '../types';
-
+import { useEffect, useState } from 'react';
+import { PayjpV2Service } from '../lib/payjp-service';
+import { MountFormType, PayjpV2PropType } from '../types';
 const isIterable = (obj: any) => {
   if (obj == null) return false;
   return typeof obj[Symbol.iterator] === 'function';
 };
 
-export const usePayJpV2: React.FC<PayJpV2PropType> = ({
-  children,
+const payjp = new PayjpV2Service({});
+
+const usePayjpV2 = ({
   publicToken,
   buttonText,
   onTokenCreated,
   onNumberFormInputChange,
-}) => {
-  const [loaded, setLoaded] = useState(false);
-  const [scriptLoaded, setScriptLoaded] = useState(false);
-
-  const payJpV2Service = new PayJpV2Service({
-    publicToken: publicToken,
-    onTokenCreated: onTokenCreated,
-    onNumberFormInputChange: onNumberFormInputChange,
-  });
+}: PayjpV2PropType) => {
+  const [isPayjpReady, setIsPayjpReady] = useState(false);
+  const [isElementsReady, setIsElementsReady] = useState(false);
+  const [children, setChildren] = useState<React.ReactNode | React.ReactNode[]>(
+    []
+  );
 
   useEffect(() => {
-    setLoaded(true);
-    payJpV2Service.createScript(() => setScriptLoaded(true));
-  }, []);
+    if (isPayjpReady) {
+      payjp.init({
+        publicToken,
+        onTokenCreated,
+        onNumberFormInputChange,
+      });
+      (async () => {
+        await payjp.createScript();
+        payjp.createElements();
+        setIsElementsReady(true);
+      })();
+    }
+  }, [isPayjpReady]);
 
   useEffect(() => {
-    if (scriptLoaded) {
-      payJpV2Service.createElements();
+    if (isElementsReady) {
       if (!children) {
         console.warn('need to pass at least one card form');
         return;
@@ -40,24 +45,16 @@ export const usePayJpV2: React.FC<PayJpV2PropType> = ({
       const childs = isIterable(children) ? children : [children];
 
       (childs as []).forEach((child: any) => {
-        payJpV2Service.mountForm({
+        payjp.mountForm({
           name: child.props.name,
           id: child.props.id,
           style: child.props.style,
         });
       });
     }
-  }, [scriptLoaded]);
+  }, [children, isElementsReady]);
 
-  return (
-    <div id='payjp-v2' className='payjp-outer'>
-      {children}
-      <button onClick={payJpV2Service.submit}>{buttonText}</button>
-      <span id='payjp-v2-token'></span>
-    </div>
-  );
+  return { setIsPayjpReady, payjp, buttonText, setChildren };
 };
 
-export const PayJpV2Element: React.FC<MountFormType> = ({ id }) => {
-  return <div id={id}></div>;
-};
+export { usePayjpV2 };

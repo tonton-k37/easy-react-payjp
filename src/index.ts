@@ -1,3 +1,2 @@
-export { PayJpCheckOut } from './component/PayJpCheckout';
-export { PayJpV2, PayJpV2Element } from './component/PayJpV2';
+export { usePayjpCheckout, usePayjpV2 } from './hooks';
 export * from './types';

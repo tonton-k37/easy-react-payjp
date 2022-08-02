@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { PayJpCheckOutService } from '../lib/payjp-service';
-import { PayJpCheckoutType } from '../types';
+import { useEffect, useState } from 'react';
+import { PayjpCheckoutService } from '../lib/payjp-service';
+import { PayjpCheckoutType } from '../types';
 
-export const PayJpCheckOut: React.FC<PayJpCheckoutType> = ({
-  payJpSource,
+const usePayjpCheckout = ({
+  PayjpSource,
   publicToken,
   onTokenCreated,
   onTokenFailedToCreate,
@@ -15,11 +15,11 @@ export const PayJpCheckOut: React.FC<PayJpCheckoutType> = ({
   namePlaceholder,
   tenant,
   partial,
-}) => {
-  const [loaded, setLoaded] = useState(false);
+}: PayjpCheckoutType) => {
+  const [isPayjpReady, setIsPayjpReady] = useState(false);
 
-  const usePayJpService = new PayJpCheckOutService({
-    payJpSource,
+  const payjp = new PayjpCheckoutService({
+    PayjpSource,
     publicToken,
     buttonAppendTo: 'payjpService',
     onTokenCreated: () => console.info('token created'),
@@ -35,14 +35,12 @@ export const PayJpCheckOut: React.FC<PayJpCheckoutType> = ({
   });
 
   useEffect(() => {
-    setLoaded(true);
-  }, []);
-
-  useEffect(() => {
-    if (loaded) {
-      usePayJpService.mountButton();
+    if (isPayjpReady) {
+      payjp.mountButton();
     }
-  }, [loaded]);
+  }, [isPayjpReady]);
 
-  return <div id='payjpService'></div>;
+  return { setIsPayjpReady };
 };
+
+export { usePayjpCheckout };

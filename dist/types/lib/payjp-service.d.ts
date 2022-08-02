@@ -1,8 +1,8 @@
-import { MountFormType, PayJpCheckoutType, PayJpV2Type, SupportedLanguageType } from '../types';
-export declare class PayJpCheckOutService {
-    private _payJpSource;
-    get payJpSource(): string;
-    set payJpSource(value: string);
+import { MountFormType, PayjpCheckoutType, PayjpV2Type, SupportedLanguageType } from '../types';
+export declare class PayjpCheckoutService {
+    private _PayjpSource;
+    get PayjpSource(): string;
+    set PayjpSource(value: string);
     private _publicToken;
     get publicToken(): string;
     set publicToken(value: string);
@@ -39,18 +39,18 @@ export declare class PayJpCheckOutService {
     private _partial;
     get partial(): boolean;
     set partial(value: boolean);
-    constructor({ payJpSource, publicToken, buttonAppendTo, onTokenCreated, onTokenFailedToCreate, text, submitText, tokenName, previousToken, lang, namePlaceholder, tenant, partial, }: PayJpCheckoutType);
+    constructor({ PayjpSource, publicToken, buttonAppendTo, onTokenCreated, onTokenFailedToCreate, text, submitText, tokenName, previousToken, lang, namePlaceholder, tenant, partial, }: PayjpCheckoutType);
     mountButton(): void;
     private setCallBackToWindow;
     private getAttributeList;
 }
-export declare class PayJpV2Service {
+export declare class PayjpV2Service {
     private _formAppendTo;
     get formAppendTo(): string;
     set formAppendTo(value: string);
-    private _payJpV2Source;
-    get payJpV2Source(): string;
-    set payJpV2Source(value: string);
+    private _PayjpV2Source;
+    get PayjpV2Source(): string;
+    set PayjpV2Source(value: string);
     private _publicToken;
     get publicToken(): string;
     set publicToken(value: string);
@@ -63,15 +63,19 @@ export declare class PayJpV2Service {
     private _scriptId;
     get scriptId(): string;
     set scriptId(value: string);
-    private _payjp;
-    get payjp(): any;
-    set payjp(value: any);
+    private _Payjp;
+    get Payjp(): any;
+    set Payjp(value: any);
     private _elements;
     get elements(): any;
     set elements(value: any);
     card: any;
-    constructor({ formAppendTo, payJpV2Source, publicToken, onTokenCreated, onNumberFormInputChange, }: PayJpV2Type);
-    createScript(callbackFunction?: <T>(args?: T) => any): void;
+    constructor({ formAppendTo, PayjpV2Source, }: {
+        formAppendTo?: string | undefined;
+        PayjpV2Source?: string | undefined;
+    });
+    init({ publicToken, onTokenCreated, onNumberFormInputChange, }: PayjpV2Type): void;
+    createScript(callbackFunction?: <T>(args?: T) => any): Promise<unknown>;
     createElements(): void;
     mountForm(form: MountFormType): void;
     submit(): void;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { MountFormType } from '../types';
 import { PayjpV2Service } from '../lib/payjp-service';
 

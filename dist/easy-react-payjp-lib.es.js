@@ -1,359 +1,306 @@
-var __defProp = Object.defineProperty;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __publicField = (obj, key, value) => {
-  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
-  return value;
-};
-import React, { useState, useEffect } from "react";
-class PayJpCheckOutService {
+var j = Object.defineProperty;
+var C = (o, e, t) => e in o ? j(o, e, { enumerable: !0, configurable: !0, writable: !0, value: t }) : o[e] = t;
+var n = (o, e, t) => (C(o, typeof e != "symbol" ? e + "" : e, t), t);
+import { useState as m, useEffect as _ } from "react";
+class g {
   constructor({
-    payJpSource = "https://checkout.pay.jp/",
-    publicToken,
-    buttonAppendTo = "",
-    onTokenCreated = () => console.log("token created"),
-    onTokenFailedToCreate = () => console.log("failed to create token"),
-    text = "\u30AB\u30FC\u30C9\u3067\u652F\u6255\u3046",
-    submitText = "\u30AB\u30FC\u30C9\u3067\u652F\u6255\u3046",
-    tokenName = "",
-    previousToken = "",
-    lang = "ja",
-    namePlaceholder = "TARO YAMADA",
-    tenant = "",
-    partial = true
+    PayjpSource: e = "https://checkout.pay.jp/",
+    publicToken: t,
+    buttonAppendTo: s = "",
+    onTokenCreated: i = () => console.log("token created"),
+    onTokenFailedToCreate: r = () => console.log("failed to create token"),
+    text: p = "\u30AB\u30FC\u30C9\u3067\u652F\u6255\u3046",
+    submitText: c = "\u30AB\u30FC\u30C9\u3067\u652F\u6255\u3046",
+    tokenName: a = "",
+    previousToken: l = "",
+    lang: d = "ja",
+    namePlaceholder: u = "TARO YAMADA",
+    tenant: T = "",
+    partial: k = !0
   }) {
-    __publicField(this, "_payJpSource");
-    __publicField(this, "_publicToken");
-    __publicField(this, "_buttonAppendTo");
-    __publicField(this, "_onTokenCreated");
-    __publicField(this, "_onTokenFailedToCreate");
-    __publicField(this, "_text");
-    __publicField(this, "_submitText");
-    __publicField(this, "_tokenName");
-    __publicField(this, "_previousToken");
-    __publicField(this, "_lang");
-    __publicField(this, "_namePlaceholder");
-    __publicField(this, "_tenant");
-    __publicField(this, "_partial");
-    this.payJpSource = payJpSource;
-    this.publicToken = publicToken;
-    this.buttonAppendTo = buttonAppendTo;
-    this.onTokenCreated = onTokenCreated;
-    this.onTokenFailedToCreate = onTokenFailedToCreate;
-    this.text = text;
-    this.submitText = submitText;
-    this.tokenName = tokenName;
-    this.previousToken = previousToken;
-    this.lang = lang;
-    this.namePlaceholder = namePlaceholder;
-    this.tenant = tenant;
-    this.partial = partial;
-    this.setCallBackToWindow();
+    n(this, "_PayjpSource");
+    n(this, "_publicToken");
+    n(this, "_buttonAppendTo");
+    n(this, "_onTokenCreated");
+    n(this, "_onTokenFailedToCreate");
+    n(this, "_text");
+    n(this, "_submitText");
+    n(this, "_tokenName");
+    n(this, "_previousToken");
+    n(this, "_lang");
+    n(this, "_namePlaceholder");
+    n(this, "_tenant");
+    n(this, "_partial");
+    this.PayjpSource = e, this.publicToken = t, this.buttonAppendTo = s, this.onTokenCreated = i, this.onTokenFailedToCreate = r, this.text = p, this.submitText = c, this.tokenName = a, this.previousToken = l, this.lang = d, this.namePlaceholder = u, this.tenant = T, this.partial = k, this.setCallBackToWindow();
   }
-  get payJpSource() {
-    return this._payJpSource;
+  get PayjpSource() {
+    return this._PayjpSource;
   }
-  set payJpSource(value) {
-    this._payJpSource = value;
+  set PayjpSource(e) {
+    this._PayjpSource = e;
   }
   get publicToken() {
     return this._publicToken;
   }
-  set publicToken(value) {
-    this._publicToken = value;
+  set publicToken(e) {
+    this._publicToken = e;
   }
   get buttonAppendTo() {
     return this._buttonAppendTo;
   }
-  set buttonAppendTo(value) {
-    this._buttonAppendTo = value;
+  set buttonAppendTo(e) {
+    this._buttonAppendTo = e;
   }
   get onTokenCreated() {
     return this._onTokenCreated;
   }
-  set onTokenCreated(value) {
-    this._onTokenCreated = value;
+  set onTokenCreated(e) {
+    this._onTokenCreated = e;
   }
   get onTokenFailedToCreate() {
     if (!this.partial) {
-      console.warn("unable to call this callback. partial needs to be set to true");
+      console.warn(
+        "unable to call this callback. partial needs to be set to true"
+      );
       return;
     }
     return this._onTokenFailedToCreate;
   }
-  set onTokenFailedToCreate(value) {
-    this._onTokenFailedToCreate = value;
+  set onTokenFailedToCreate(e) {
+    this._onTokenFailedToCreate = e;
   }
   get text() {
     return this._text;
   }
-  set text(value) {
-    this._text = value;
+  set text(e) {
+    this._text = e;
   }
   get submitText() {
     return this._submitText;
   }
-  set submitText(value) {
-    this._submitText = value;
+  set submitText(e) {
+    this._submitText = e;
   }
   get tokenName() {
     return this._tokenName;
   }
-  set tokenName(value) {
-    this._tokenName = value;
+  set tokenName(e) {
+    this._tokenName = e;
   }
   get previousToken() {
     return this._previousToken;
   }
-  set previousToken(value) {
-    this._previousToken = value;
+  set previousToken(e) {
+    this._previousToken = e;
   }
   get lang() {
     return this._lang || "ja";
   }
-  set lang(value) {
-    this._lang = value;
+  set lang(e) {
+    this._lang = e;
   }
   get namePlaceholder() {
     return this._namePlaceholder;
   }
-  set namePlaceholder(value) {
-    this._namePlaceholder = value;
+  set namePlaceholder(e) {
+    this._namePlaceholder = e;
   }
   get tenant() {
     return this._tenant;
   }
-  set tenant(value) {
-    this._tenant = value;
+  set tenant(e) {
+    this._tenant = e;
   }
   get partial() {
     return this._partial;
   }
-  set partial(value) {
-    this._partial = value;
+  set partial(e) {
+    this._partial = e;
   }
   mountButton() {
-    var _a;
-    const script = document.createElement("script");
-    script.src = this.payJpSource;
-    script.classList.add("payjp-button");
-    this.getAttributeList().forEach((attributeName) => {
-      script.dataset[attributeName] = this[attributeName];
-    });
-    script.dataset.key = this.publicToken;
-    script.dataset.onCreated = "payJpServiceOnTokenCreated";
-    script.dataset.onFailed = "payJpServiceonTokenFailedToCreate";
-    (_a = document == null ? void 0 : document.getElementById(this.buttonAppendTo)) == null ? void 0 : _a.appendChild(script);
+    var t;
+    const e = document.createElement("script");
+    e.src = this.PayjpSource, e.classList.add("payjp-button"), this.getAttributeList().forEach((s) => {
+      e.dataset[s] = this[s];
+    }), e.dataset.key = this.publicToken, e.dataset.onCreated = "payjpServiceOnTokenCreated", e.dataset.onFailed = "payjpServiceonTokenFailedToCreate", (t = document.getElementById(this.buttonAppendTo)) == null || t.appendChild(e);
   }
   setCallBackToWindow() {
-    window.payJpServiceOnTokenCreated = this.onTokenCreated;
-    window.payJpServiceonTokenFailedToCreate = this.onTokenFailedToCreate;
+    window.payjpServiceOnTokenCreated = this.onTokenCreated, window.payjpServiceonTokenFailedToCreate = this.onTokenFailedToCreate;
   }
-  getAttributeList(unscored = false) {
-    const attributeNames = Object.getOwnPropertyNames(this).filter((attribute) => !["_payJpSource", "_onTokenCreated", "_onTokenFailedToCreate"].includes(attribute));
-    if (unscored)
-      return attributeNames;
-    return attributeNames.map((name) => {
-      return name.replace("_", "");
-    });
+  getAttributeList(e = !1) {
+    const t = Object.getOwnPropertyNames(this).filter(
+      (s) => !["_payjpSource", "_onTokenCreated", "_onTokenFailedToCreate"].includes(
+        s
+      )
+    );
+    return e ? t : t.map((s) => s.replace("_", ""));
   }
 }
-class PayJpV2Service {
+class b {
   constructor({
-    formAppendTo = "payjp-v2",
-    payJpV2Source = "https://js.pay.jp/v2/pay.js",
-    publicToken,
-    onTokenCreated = () => console.log("token created"),
-    onNumberFormInputChange = (event) => console.log("input changed")
+    formAppendTo: e = "Payjp-v2",
+    PayjpV2Source: t = "https://js.pay.jp/v2/pay.js"
   }) {
-    __publicField(this, "_formAppendTo");
-    __publicField(this, "_payJpV2Source");
-    __publicField(this, "_publicToken");
-    __publicField(this, "_onTokenCreated");
-    __publicField(this, "_onNumberFormInputChange");
-    __publicField(this, "_scriptId", "payjp-v2-script");
-    __publicField(this, "_payjp");
-    __publicField(this, "_elements");
-    __publicField(this, "card");
-    this.formAppendTo = formAppendTo;
-    this.payJpV2Source = payJpV2Source;
-    this.publicToken = publicToken;
-    this.onTokenCreated = onTokenCreated;
-    this.onNumberFormInputChange = onNumberFormInputChange;
-    this.submit = this.submit.bind(this);
+    n(this, "_formAppendTo");
+    n(this, "_PayjpV2Source");
+    n(this, "_publicToken");
+    n(this, "_onTokenCreated");
+    n(this, "_onNumberFormInputChange");
+    n(this, "_scriptId", "Payjp-v2-script");
+    n(this, "_Payjp");
+    n(this, "_elements");
+    n(this, "card");
+    this.formAppendTo = e, this.PayjpV2Source = t;
   }
   get formAppendTo() {
     return this._formAppendTo;
   }
-  set formAppendTo(value) {
-    this._formAppendTo = value;
+  set formAppendTo(e) {
+    this._formAppendTo = e;
   }
-  get payJpV2Source() {
-    return this._payJpV2Source;
+  get PayjpV2Source() {
+    return this._PayjpV2Source;
   }
-  set payJpV2Source(value) {
-    this._payJpV2Source = value;
+  set PayjpV2Source(e) {
+    this._PayjpV2Source = e;
   }
   get publicToken() {
     return this._publicToken;
   }
-  set publicToken(value) {
-    this._publicToken = value;
+  set publicToken(e) {
+    this._publicToken = e;
   }
   get onTokenCreated() {
     return this._onTokenCreated;
   }
-  set onTokenCreated(value) {
-    this._onTokenCreated = value;
+  set onTokenCreated(e) {
+    this._onTokenCreated = e;
   }
   get onNumberFormInputChange() {
     return this._onNumberFormInputChange;
   }
-  set onNumberFormInputChange(value) {
-    this._onNumberFormInputChange = value;
+  set onNumberFormInputChange(e) {
+    this._onNumberFormInputChange = e;
   }
   get scriptId() {
     return this._scriptId;
   }
-  set scriptId(value) {
-    this._scriptId = value;
+  set scriptId(e) {
+    this._scriptId = e;
   }
-  get payjp() {
-    return this._payjp;
+  get Payjp() {
+    return this._Payjp;
   }
-  set payjp(value) {
-    this._payjp = value;
+  set Payjp(e) {
+    this._Payjp = e;
   }
   get elements() {
     return this._elements;
   }
-  set elements(value) {
-    this._elements = value;
+  set elements(e) {
+    this._elements = e;
   }
-  createScript(callbackFunction) {
-    const isScriptExist = document.getElementById(this.scriptId);
-    if (!isScriptExist) {
-      const script = document.createElement("script");
-      script.src = this.payJpV2Source;
-      script.id = this.scriptId;
-      script.type = "module";
-      document.head.appendChild(script);
-      script.onload = (event) => {
-        if (callbackFunction)
-          callbackFunction();
-      };
-    }
+  init({
+    publicToken: e,
+    onTokenCreated: t = () => console.log("token created"),
+    onNumberFormInputChange: s = (i) => console.log("input changed")
+  }) {
+    this.publicToken = e, this.onTokenCreated = t, this.onNumberFormInputChange = s;
+  }
+  createScript(e) {
+    return new Promise((t, s) => {
+      if (document.getElementById(this.scriptId)) {
+        const r = document.createElement("script");
+        r.src = this.PayjpV2Source, r.id = this.scriptId, document.head.appendChild(r), r.onload = (p) => {
+          e && e(), t(!0);
+        };
+      }
+    });
   }
   createElements() {
     try {
-      this.payjp = Payjp(this.publicToken);
-      this.elements = this.payjp.elements();
+      this.Payjp = Payjp(this.publicToken), this.elements = this.Payjp.elements();
     } catch (e) {
       console.warn(e);
     }
   }
-  mountForm(form) {
-    const element = this.elements.create(form.name, { style: form.style });
-    element.mount(`#${form.id}`);
-    if (form.name === "card" || "cardNumber") {
-      this.card = element;
-      element.on("change", this.onNumberFormInputChange);
-    }
+  mountForm(e) {
+    const t = this.elements.create(e.name, { style: e.style });
+    t.mount(`#${e.id}`), e.name, this.card = t, t.on("change", this.onNumberFormInputChange);
   }
   submit() {
-    this.payjp.createToken(this.card).then((r) => {
-      const v2tokenElement = document == null ? void 0 : document.getElementById("payjp-v2-token");
-      v2tokenElement.innerText = r.error ? r.error.message : r.id;
-    });
+    this.Payjp.createToken(this.card).then(
+      (e) => {
+        const t = document == null ? void 0 : document.getElementById("Payjp-v2-token");
+        t.innerText = e.error ? e.error.message : e.id;
+      }
+    );
   }
 }
-const PayJpCheckOut = ({
-  payJpSource,
-  publicToken,
-  onTokenCreated,
-  onTokenFailedToCreate,
-  text,
-  submitText,
-  tokenName,
-  previousToken,
-  lang,
-  namePlaceholder,
-  tenant,
-  partial
+const F = ({
+  PayjpSource: o,
+  publicToken: e,
+  onTokenCreated: t,
+  onTokenFailedToCreate: s,
+  text: i,
+  submitText: r,
+  tokenName: p,
+  previousToken: c,
+  lang: a,
+  namePlaceholder: l,
+  tenant: d,
+  partial: u
 }) => {
-  const [loaded, setLoaded] = useState(false);
-  const payJpService = new PayJpCheckOutService({
-    payJpSource,
-    publicToken,
+  const [T, k] = m(!1), y = new g({
+    PayjpSource: o,
+    publicToken: e,
     buttonAppendTo: "payjpService",
     onTokenCreated: () => console.info("token created"),
     onTokenFailedToCreate: () => console.info("error"),
-    text,
-    submitText,
-    tokenName,
-    previousToken,
-    lang,
-    namePlaceholder,
-    tenant,
-    partial
+    text: i,
+    submitText: r,
+    tokenName: p,
+    previousToken: c,
+    lang: a,
+    namePlaceholder: l,
+    tenant: d,
+    partial: u
   });
-  useEffect(() => {
-    setLoaded(true);
-  }, []);
-  useEffect(() => {
-    if (loaded) {
-      payJpService.mountButton();
-    }
-  }, [loaded]);
-  return /* @__PURE__ */ React.createElement("div", {
-    id: "payjpService"
-  });
-};
-const isIterable = (obj) => {
-  if (obj == null)
-    return false;
-  return typeof obj[Symbol.iterator] === "function";
-};
-const PayJpV2 = ({ children, publicToken, buttonText, onTokenCreated, onNumberFormInputChange }) => {
-  const [loaded, setLoaded] = useState(false);
-  const [scriptLoaded, setScriptLoaded] = useState(false);
-  const payJpV2Service = new PayJpV2Service({
-    publicToken,
-    onTokenCreated,
-    onNumberFormInputChange
-  });
-  useEffect(() => {
-    setLoaded(true);
-    payJpV2Service.createScript(() => setScriptLoaded(true));
-  }, []);
-  useEffect(() => {
-    if (scriptLoaded) {
-      payJpV2Service.createElements();
-      if (!children) {
+  return _(() => {
+    T && y.mountButton();
+  }, [T]), { setIsPayjpReady: k };
+}, P = (o) => o == null ? !1 : typeof o[Symbol.iterator] == "function", h = new b({}), A = ({
+  publicToken: o,
+  buttonText: e,
+  onTokenCreated: t,
+  onNumberFormInputChange: s
+}) => {
+  const [i, r] = m(!1), [p, c] = m(!1), [a, l] = m(
+    []
+  );
+  return _(() => {
+    i && (h.init({
+      publicToken: o,
+      onTokenCreated: t,
+      onNumberFormInputChange: s
+    }), (async () => (await h.createScript(), h.createElements(), c(!0)))());
+  }, [i]), _(() => {
+    if (p) {
+      if (!a) {
         console.warn("need to pass at least one card form");
         return;
       }
-      const childs = isIterable(children) ? children : [children];
-      childs.forEach((child) => {
-        payJpV2Service.mountForm({
-          name: child.props.name,
-          id: child.props.id,
-          style: child.props.style
+      (P(a) ? a : [a]).forEach((u) => {
+        h.mountForm({
+          name: u.props.name,
+          id: u.props.id,
+          style: u.props.style
         });
       });
     }
-  }, [scriptLoaded]);
-  return /* @__PURE__ */ React.createElement("div", {
-    id: "payjp-v2",
-    className: "payjp-outer"
-  }, children, /* @__PURE__ */ React.createElement("button", {
-    onClick: payJpV2Service.submit
-  }, buttonText), /* @__PURE__ */ React.createElement("span", {
-    id: "payjp-v2-token"
-  }));
+  }, [a, p]), { setIsPayjpReady: r, payjp: h, buttonText: e, setChildren: l };
 };
-const PayJpV2Element = ({ id }) => {
-  return /* @__PURE__ */ React.createElement("div", {
-    id
-  });
+export {
+  F as usePayjpCheckout,
+  A as usePayjpV2
 };
-export { PayJpCheckOut, PayJpV2, PayJpV2Element };

@@ -1,11 +1,11 @@
 /// <reference types="react" />
-export declare type PayJpType = {
-    payJpServiceOnTokenCreated: <T>(args: T) => any;
-    payJpServiceonTokenFailedToCreate: <T>(args: T) => any;
+export declare type PayjpType = {
+    payjpServiceOnTokenCreated: <T>(args: T) => any;
+    payjpServiceonTokenFailedToCreate: <T>(args: T) => any;
 } & Window;
 export declare type SupportedLanguageType = 'ja' | 'en';
-export declare type PayJpCheckoutType = {
-    payJpSource?: string;
+export declare type PayjpCheckoutType = {
+    PayjpSource?: string;
     publicToken: string;
     buttonAppendTo?: string;
     onTokenCreated?: <T>(args: T) => any;
@@ -19,14 +19,14 @@ export declare type PayJpCheckoutType = {
     tenant?: string;
     partial?: boolean;
 };
-export declare type PayJpV2Type = {
+export declare type PayjpV2Type = {
     formAppendTo?: string;
-    payJpV2Source?: string;
+    PayjpV2Source?: string;
     publicToken: string;
     onTokenCreated?: <T>(args: T) => any;
     onNumberFormInputChange?: <T>(args: T) => any;
 };
-export declare type PayJpV2PropType = {
+export declare type PayjpV2PropType = {
     buttonText: string;
     publicToken: string;
     onTokenCreated?: <T>(args: T) => any;

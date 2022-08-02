@@ -34,7 +34,7 @@ export const App: React.FC = () => {
       <PayjpCheckout {...checkoutProps} />
 
       <PayjpV2 {...v2Props}>
-        <PayJpV2Element name='card' id='card' />
+        <PayJpV2Element name='card' id='card' style={style} />
       </PayjpV2>
     </div>
   );

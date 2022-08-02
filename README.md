@@ -48,13 +48,13 @@ const style = {
 
 function App() {
   const checkoutProps = usePayjpCheckout({
-    publicToken: 'pk_test_e411f2a3951990d74afda24d',
+    publicToken: 'YOUR_API_KEY',
     onTokenCreated: () => console.info('token created'),
     onTokenFailedToCreate: () => console.error('error'),
   });
 
   const v2Props = usePayjpV2({
-    publicToken: 'pk_test_e411f2a3951990d74afda24d',
+    publicToken: 'YOUR_API_KEY',
     buttonText: 'submit',
     onTokenCreated: () => console.log('createToken'),
     onNumberFormInputChange: () => console.log('form changed'),

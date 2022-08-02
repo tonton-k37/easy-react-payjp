@@ -1,22 +1,22 @@
-var j = Object.defineProperty;
-var C = (o, e, t) => e in o ? j(o, e, { enumerable: !0, configurable: !0, writable: !0, value: t }) : o[e] = t;
-var n = (o, e, t) => (C(o, typeof e != "symbol" ? e + "" : e, t), t);
-import { useState as m, useEffect as _ } from "react";
-class g {
+var C = Object.defineProperty;
+var g = (o, e, t) => e in o ? C(o, e, { enumerable: !0, configurable: !0, writable: !0, value: t }) : o[e] = t;
+var n = (o, e, t) => (g(o, typeof e != "symbol" ? e + "" : e, t), t);
+import c, { useState as y, useEffect as m } from "react";
+class b {
   constructor({
     PayjpSource: e = "https://checkout.pay.jp/",
     publicToken: t,
-    buttonAppendTo: s = "",
-    onTokenCreated: i = () => console.log("token created"),
-    onTokenFailedToCreate: r = () => console.log("failed to create token"),
+    buttonAppendTo: r = "",
+    onTokenCreated: s = () => console.log("token created"),
+    onTokenFailedToCreate: a = () => console.log("failed to create token"),
     text: p = "\u30AB\u30FC\u30C9\u3067\u652F\u6255\u3046",
-    submitText: c = "\u30AB\u30FC\u30C9\u3067\u652F\u6255\u3046",
-    tokenName: a = "",
-    previousToken: l = "",
-    lang: d = "ja",
+    submitText: l = "\u30AB\u30FC\u30C9\u3067\u652F\u6255\u3046",
+    tokenName: i = "",
+    previousToken: d = "",
+    lang: T = "ja",
     namePlaceholder: u = "TARO YAMADA",
-    tenant: T = "",
-    partial: k = !0
+    tenant: k = "",
+    partial: _ = !0
   }) {
     n(this, "_PayjpSource");
     n(this, "_publicToken");
@@ -31,7 +31,7 @@ class g {
     n(this, "_namePlaceholder");
     n(this, "_tenant");
     n(this, "_partial");
-    this.PayjpSource = e, this.publicToken = t, this.buttonAppendTo = s, this.onTokenCreated = i, this.onTokenFailedToCreate = r, this.text = p, this.submitText = c, this.tokenName = a, this.previousToken = l, this.lang = d, this.namePlaceholder = u, this.tenant = T, this.partial = k, this.setCallBackToWindow();
+    this.PayjpSource = e, this.publicToken = t, this.buttonAppendTo = r, this.onTokenCreated = s, this.onTokenFailedToCreate = a, this.text = p, this.submitText = l, this.tokenName = i, this.previousToken = d, this.lang = T, this.namePlaceholder = u, this.tenant = k, this.partial = _, this.setCallBackToWindow();
   }
   get PayjpSource() {
     return this._PayjpSource;
@@ -120,8 +120,8 @@ class g {
   mountButton() {
     var t;
     const e = document.createElement("script");
-    e.src = this.PayjpSource, e.classList.add("payjp-button"), this.getAttributeList().forEach((s) => {
-      e.dataset[s] = this[s];
+    e.src = this.PayjpSource, e.classList.add("payjp-button"), this.getAttributeList().forEach((r) => {
+      e.dataset[r] = this[r];
     }), e.dataset.key = this.publicToken, e.dataset.onCreated = "payjpServiceOnTokenCreated", e.dataset.onFailed = "payjpServiceonTokenFailedToCreate", (t = document.getElementById(this.buttonAppendTo)) == null || t.appendChild(e);
   }
   setCallBackToWindow() {
@@ -129,14 +129,14 @@ class g {
   }
   getAttributeList(e = !1) {
     const t = Object.getOwnPropertyNames(this).filter(
-      (s) => !["_payjpSource", "_onTokenCreated", "_onTokenFailedToCreate"].includes(
-        s
+      (r) => !["_payjpSource", "_onTokenCreated", "_onTokenFailedToCreate"].includes(
+        r
       )
     );
-    return e ? t : t.map((s) => s.replace("_", ""));
+    return e ? t : t.map((r) => r.replace("_", ""));
   }
 }
-class b {
+class P {
   constructor({
     formAppendTo: e = "Payjp-v2",
     PayjpV2Source: t = "https://js.pay.jp/v2/pay.js"
@@ -203,15 +203,15 @@ class b {
   init({
     publicToken: e,
     onTokenCreated: t = () => console.log("token created"),
-    onNumberFormInputChange: s = (i) => console.log("input changed")
+    onNumberFormInputChange: r = (s) => console.log("input changed")
   }) {
-    this.publicToken = e, this.onTokenCreated = t, this.onNumberFormInputChange = s;
+    this.publicToken = e, this.onTokenCreated = t, this.onNumberFormInputChange = r;
   }
   createScript(e) {
-    return new Promise((t, s) => {
+    return new Promise((t, r) => {
       if (document.getElementById(this.scriptId)) {
-        const r = document.createElement("script");
-        r.src = this.PayjpV2Source, r.id = this.scriptId, document.head.appendChild(r), r.onload = (p) => {
+        const a = document.createElement("script");
+        a.src = this.PayjpV2Source, a.id = this.scriptId, document.head.appendChild(a), a.onload = (p) => {
           e && e(), t(!0);
         };
       }
@@ -241,56 +241,56 @@ const F = ({
   PayjpSource: o,
   publicToken: e,
   onTokenCreated: t,
-  onTokenFailedToCreate: s,
-  text: i,
-  submitText: r,
+  onTokenFailedToCreate: r,
+  text: s,
+  submitText: a,
   tokenName: p,
-  previousToken: c,
-  lang: a,
-  namePlaceholder: l,
-  tenant: d,
+  previousToken: l,
+  lang: i,
+  namePlaceholder: d,
+  tenant: T,
   partial: u
 }) => {
-  const [T, k] = m(!1), y = new g({
+  const [k, _] = y(!1), j = new b({
     PayjpSource: o,
     publicToken: e,
     buttonAppendTo: "payjpService",
     onTokenCreated: () => console.info("token created"),
     onTokenFailedToCreate: () => console.info("error"),
-    text: i,
-    submitText: r,
+    text: s,
+    submitText: a,
     tokenName: p,
-    previousToken: c,
-    lang: a,
-    namePlaceholder: l,
-    tenant: d,
+    previousToken: l,
+    lang: i,
+    namePlaceholder: d,
+    tenant: T,
     partial: u
   });
-  return _(() => {
-    T && y.mountButton();
-  }, [T]), { setIsPayjpReady: k };
-}, P = (o) => o == null ? !1 : typeof o[Symbol.iterator] == "function", h = new b({}), A = ({
+  return m(() => {
+    k && j.mountButton();
+  }, [k]), { setIsPayjpReady: _ };
+}, f = (o) => o == null ? !1 : typeof o[Symbol.iterator] == "function", h = new P({}), A = ({
   publicToken: o,
   buttonText: e,
   onTokenCreated: t,
-  onNumberFormInputChange: s
+  onNumberFormInputChange: r
 }) => {
-  const [i, r] = m(!1), [p, c] = m(!1), [a, l] = m(
+  const [s, a] = y(!1), [p, l] = y(!1), [i, d] = y(
     []
   );
-  return _(() => {
-    i && (h.init({
+  return m(() => {
+    s && (h.init({
       publicToken: o,
       onTokenCreated: t,
-      onNumberFormInputChange: s
-    }), (async () => (await h.createScript(), h.createElements(), c(!0)))());
-  }, [i]), _(() => {
+      onNumberFormInputChange: r
+    }), (async () => (await h.createScript(), h.createElements(), l(!0)))());
+  }, [s]), m(() => {
     if (p) {
-      if (!a) {
+      if (!i) {
         console.warn("need to pass at least one card form");
         return;
       }
-      (P(a) ? a : [a]).forEach((u) => {
+      (f(i) ? i : [i]).forEach((u) => {
         h.mountForm({
           name: u.props.name,
           id: u.props.id,
@@ -298,9 +298,29 @@ const F = ({
         });
       });
     }
-  }, [a, p]), { setIsPayjpReady: r, payjp: h, buttonText: e, setChildren: l };
-};
+  }, [i, p]), { setIsPayjpReady: a, payjp: h, buttonText: e, setChildren: d };
+}, E = ({ setIsPayjpReady: o }) => (m(() => {
+  o(!0);
+}, []), /* @__PURE__ */ c.createElement("div", {
+  id: "payjpService"
+})), I = ({ children: o, payjp: e, buttonText: t, setIsPayjpReady: r, setChildren: s }) => (m(() => {
+  r(!0), s(o);
+}, []), /* @__PURE__ */ c.createElement("div", {
+  id: e.scriptId
+}, /* @__PURE__ */ c.createElement("div", {
+  id: "payjp-v2",
+  className: "payjp-outer"
+}, o, /* @__PURE__ */ c.createElement("button", {
+  onClick: e.submit
+}, t), /* @__PURE__ */ c.createElement("span", {
+  id: "payjp-v2-token"
+})))), x = ({ id: o }) => /* @__PURE__ */ c.createElement("div", {
+  id: o
+});
 export {
+  x as PayJpV2Element,
+  E as PayjpCheckout,
+  I as PayjpV2,
   F as usePayjpCheckout,
   A as usePayjpV2
 };

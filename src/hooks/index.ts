@@ -1,4 +1,4 @@
-import { usePayjpCheckout } from './PayjpCheckout';
-import { usePayjpV2 } from './PayjpV2';
+import { usePayjpCheckout } from './usePayJpCheckout';
+import { usePayjpV2 } from './usePayJpV2';
 
 export { usePayjpCheckout, usePayjpV2 };

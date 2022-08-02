@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { PayjpV2Service } from '../lib/payjp-service';
-import { MountFormType, PayjpV2PropType } from '../types';
+import { PayjpV2PropType } from '../types';
 const isIterable = (obj: any) => {
   if (obj == null) return false;
   return typeof obj[Symbol.iterator] === 'function';
